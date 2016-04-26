@@ -10,11 +10,11 @@ case "$1" in
 
         cd /var/lib/$DPKG_MAINTSCRIPT_PACKAGE
 
-        if [ -e /var/lib/$DPKG_MAINTSCRIPT_PACKAGE/sentry.conf.py ]; then
-		echo "Do you wish to run upgrade procedures (assuming sentry.conf.py has correct settings)?"
+        if [ -e /var/lib/$DPKG_MAINTSCRIPT_PACKAGE/etc/config.yml ]; then
+		echo "Do you wish to run upgrade procedures?"
 		select yn in "Yes" "No"; do
 			case $yn in
-				Yes ) source bin/activate; cd /var/lib/$DPKG_MAINTSCRIPT_PACKAGE/bin; sentry --config=../sentry.conf.py upgrade; deactivate; break;;
+				Yes ) source bin/activate; cd /var/lib/$DPKG_MAINTSCRIPT_PACKAGE/bin; SENTRY_CONF=/var/lib/$DPKG_MAINTSCRIPT_PACKAGE/etc sentry upgrade; deactivate; break;;
 				No ) exit;;
 			esac
 		done
@@ -29,7 +29,8 @@ case "$1" in
             fi
 	else
 		source bin/activate
-		./bin/sentry init sentry.conf.py
+		mkdir -m 0755 -p /var/lib/$DPKG_MAINTSCRIPT_PACKAGE/etc
+		./bin/sentry init /var/lib/$DPKG_MAINTSCRIPT_PACKAGE/etc
 		deactivate
         fi
     ;;
