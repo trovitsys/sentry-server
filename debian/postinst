@@ -11,13 +11,7 @@ case "$1" in
         cd /var/lib/$DPKG_MAINTSCRIPT_PACKAGE
 
         if [ -e /etc/sentry/config.yml ]; then
-		echo "Do you wish to run upgrade procedures?"
-		select yn in "Yes" "No"; do
-			case $yn in
-				Yes ) source bin/activate; cd /var/lib/$DPKG_MAINTSCRIPT_PACKAGE/bin; SENTRY_CONF=/etc/sentry sentry upgrade; deactivate; break;;
-				No ) exit;;
-			esac
-		done
+            source bin/activate; cd /var/lib/$DPKG_MAINTSCRIPT_PACKAGE/bin; SENTRY_CONF=/etc/sentry sentry upgrade; deactivate; break;;
             # Restarting uwsgi
             if [ -e /etc/init.d/uwsgi ]; then
                 echo "reloading uwsgi module"
