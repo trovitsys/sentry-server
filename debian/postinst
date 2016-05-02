@@ -11,7 +11,7 @@ case "$1" in
         cd /var/lib/$DPKG_MAINTSCRIPT_PACKAGE
 
         if [ -e /etc/sentry/config.yml ]; then
-            source bin/activate; cd /var/lib/$DPKG_MAINTSCRIPT_PACKAGE/bin; SENTRY_CONF=/etc/sentry sentry upgrade; deactivate; break;;
+            source bin/activate; cd /var/lib/$DPKG_MAINTSCRIPT_PACKAGE/bin; SENTRY_CONF=/etc/sentry sentry upgrade; deactivate
             # Restarting uwsgi
             if [ -e /etc/init.d/uwsgi ]; then
                 echo "reloading uwsgi module"
